@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: twin_postgres
+    environment:
+      POSTGRES_USER: supply_chain_user
+      POSTGRES_PASSWORD: supply_chain_pass_2026
+      POSTGRES_DB: supply_chain_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: twin_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./configs/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: twin_backend
+    environment:
+      - DATABASE_URL=postgresql://supply_chain_user:supply_chain_pass_2026@postgres:5432/supply_chain_db
+      - MQTT_BROKER=mosquitto
+      - MQTT_PORT=1883
+      - MODEL_DIRECTORY=/app/models
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+    depends_on:
+      - postgres
+      - mosquitto
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    container_name: twin_dashboard
+    environment:
+      - BACKEND_URL=http://backend:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  mosquitto_data:

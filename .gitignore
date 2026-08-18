@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Environment files
+.env
+*.env.local
+
+# Models (large binary files)
+models/
+*.pkl
+*.joblib
+*.h5
+
+# Data (may contain sensitive/large data)
+data/raw/
+data/processed/
+*.csv
+*.parquet
+
+# Database files (local dev)
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# Logs
+logs/
+*.log
+
+# Notebooks (checkpoints)
+.ipynb_checkpoints/
+
+# Docker volumes (local bind mounts)
+postgres_data/
+mosquitto_data/
+
+# Distribution
+*.tar.gz
+*.zip

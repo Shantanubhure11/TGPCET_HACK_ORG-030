@@ -1,0 +1,30 @@
+# ============================================================
+# Demo Configuration — Hackathon Presentation Settings
+# ============================================================
+
+# Inherits from default.yaml, overrides for demo
+
+app:
+  environment: "demo"
+  debug: false
+
+database:
+  url: "sqlite:///./supply_chain_demo.db"
+  echo: false
+
+ml:
+  lookback_days: 180             # Faster training with less data
+  lightgbm:
+    num_boost_round: 500         # Fewer rounds for speed
+    early_stopping_rounds: 30
+
+simulation:
+  default_num_runs: 100          # Fast 100-run simulation
+  default_horizon_days: 30
+
+sample_data:
+  num_skus: 50
+  num_suppliers: 5
+  num_warehouses: 2
+  history_days: 365              # 1 year for faster loading
+  seed: 42
