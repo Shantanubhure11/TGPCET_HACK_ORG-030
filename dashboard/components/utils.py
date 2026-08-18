@@ -4,6 +4,8 @@ Queries the FastAPI backend server and provides offline fallback mock data
 in case the backend is not running, ensuring a bulletproof hackathon demo.
 """
 import logging
+from datetime import date, datetime, timedelta
+
 import requests
 import streamlit as st
 from erp_backend.config import get_settings
@@ -281,5 +283,3 @@ def generate_mock_fallback(path: str, params: dict = None, json_data: dict = Non
         ]
 
     return {}
-
-from datetime import datetime

@@ -4,6 +4,9 @@ Wraps the ML training pipeline and caches forecast predictions in the database.
 """
 import logging
 from datetime import date, datetime, timedelta
+
+import numpy as np
+import pandas as pd
 from sqlalchemy.orm import Session
 from erp_backend.models.forecast_cache import ForecastCache
 from erp_backend.models.item import Item
